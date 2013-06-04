@@ -33,10 +33,23 @@ var Layout = Y.Base.create('layout', Y.Base, [], {
 
         finalRatio = Math.min(heightRatio, widthRatio);
 
-        slides.setStyle('zoom', finalRatio);
+        var scaleStr = 'scale(' + finalRatio + ')';
 
-        if (slidesTop > 0) {
-            slides.setStyle('margin-top', slidesTop + 'px');
+        if (Y.UA.ie > 0 && Y.UA.ie < 9) {
+            slides.setStyle('zoom', finalRatio);
+
+            // zoom is different than scale, so apply top only if value is positive
+            if (slidesTop > 0) {
+                slides.setStyle('top', slidesTop + 'px');
+            }
+        } else {
+            slides.setStyles({
+                '-webkit-transform' : scaleStr,
+                '-ms-transform' : scaleStr,
+                '-o-transform' : scaleStr,
+                'transform' : scaleStr
+            });
+            slides.setStyle('top', slidesTop + 'px');
         }
     },
 
