@@ -1,7 +1,11 @@
 {
     "name": "kenjiru-slides",
     "version": "0.0.1",
+    "engines": {
+        "node": "0.10.x",
+        "npm":  "1.2.x"
+    },
     "dependencies": {
-        "connect": "2.7.10"
+        "connect": "2.7.x"
     }
 }
