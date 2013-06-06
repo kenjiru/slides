@@ -22,22 +22,21 @@ body {
     height: 700px;
 
     margin-left: 25%;
-    border: 1px solid red;
 }
 
 section {
     position: absolute;
     width: 100%;
-
-    border: 1px solid blue;
 }
 
 .present {
     opacity: 1;
+    visibility: visible;
 }
 
 .slides>section.past {
     display: block;
+    visibility: hidden;
     opacity: 0;
 
     -webkit-transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0);
@@ -48,6 +47,7 @@ section {
 
 .slides>section.future {
     display: block;
+    visibility: hidden;
     opacity: 0;
 
     -webkit-transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0);
@@ -101,4 +101,13 @@ section {
     transform 800ms cubic-bezier(0.260, 0.860, 0.440, 0.985),
     visibility 800ms cubic-bezier(0.260, 0.860, 0.440, 0.985),
     opacity 800ms cubic-bezier(0.260, 0.860, 0.440, 0.985);
+}
+
+/* DEBUG classes */
+.debug>.slides {
+    border: 1px solid red;
+}
+
+.debug>.section {
+    border: 1px solid blue;
 }
