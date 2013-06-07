@@ -6,7 +6,8 @@
         "npm":  "1.2.x"
     },
     "dependencies": {
-        "connect": "2.7.x"
+        "connect": "2.7.x",
+        "shifter": "latest"
     },
     "scripts": {
         "postinstall": "cd ./modules/src/; ../../node_modules/shifter/bin/shifter --walk --build-dir=../build"
