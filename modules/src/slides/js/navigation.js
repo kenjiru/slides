@@ -3,7 +3,8 @@ var Navigation = Y.Base.create('navigation', Y.Base, [], {
     _currentIndex : 0,
 
     initializer : function() {
-        Y.on('keydown', Y.bind(this.handleKeyPress, this));
+        // IE<9 need to listen to key event on the document
+        Y.one(document).on('keydown', Y.bind(this.handleKeyPress, this));
         Y.on('domready', Y.bind(this.handleDomReady, this));
     },
 
@@ -25,8 +26,6 @@ var Navigation = Y.Base.create('navigation', Y.Base, [], {
     },
 
     _showPreviousSlide : function() {
-        console.log('previous slide');
-
         if (this._currentIndex > 0) {
             this._getCurrentSection().removeClass('present');
             this._getCurrentSection().addClass('future');
@@ -39,8 +38,6 @@ var Navigation = Y.Base.create('navigation', Y.Base, [], {
     },
 
     _showNextSlide : function() {
-        console.log('next slide');
-
         if (this._currentIndex < this._sections.size() - 1) {
             this._getCurrentSection().removeClass('present');
             this._getCurrentSection().addClass('past');
