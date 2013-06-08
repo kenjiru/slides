@@ -4,6 +4,17 @@ var Layout = Y.Base.create('layout', Y.Base, [], {
         Y.on('windowresize', Y.bind(this.setLayout, this));
     },
 
+    // TODO Does not work
+    _checkBrowserVersion : function() {
+        if (Y.UA.ie && Y.UA.ie < 9) {
+            var htmlElements = ['header', 'nav', 'section', 'article', 'aside', 'footer', 'hgroup' ];
+
+            for (var i=0; i<htmlElements.length; i++) {
+                Y.Node.create('<' + htmlElements[i] + '></' + htmlElements[i] + '>');
+            }
+        }
+    },
+
     setLayout : function() {
         var sections = Y.all('section');
 
