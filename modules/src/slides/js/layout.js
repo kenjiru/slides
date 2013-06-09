@@ -1,7 +1,8 @@
 var Layout = Y.Base.create('layout', Y.Base, [], {
     initializer : function() {
-        Y.on('domready', Y.bind(this.setLayout, this));
         Y.on('windowresize', Y.bind(this.setLayout, this));
+
+        this.setLayout();
     },
 
     // TODO Does not work
