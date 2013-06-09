@@ -10,6 +10,12 @@ html, body {
 body {
     position: relative;
     line-height: 1;
+
+    transition: transform 0.8s ease;
+    -o-transition: -o-transform 0.8s ease;
+    -ms-transition: -ms-transform 0.8s ease;
+    -moz-transition: -moz-transform 0.8s ease;
+    -webkit-transition: -webkit-transform 0.8s ease;
 }
 
 .container {
