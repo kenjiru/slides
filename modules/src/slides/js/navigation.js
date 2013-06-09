@@ -4,11 +4,11 @@ var Navigation = Y.Base.create('navigation', Y.Base, [], {
 
     initializer : function() {
         // IE<9 need to listen to key event on the document
-        Y.one(document).on('keydown', Y.bind(this.handleKeyPress, this));
-        Y.on('domready', Y.bind(this.handleDomReady, this));
+        Y.one(document).on('keydown', Y.bind(this._handleKeyPress, this));
+        Y.on('domready', Y.bind(this._handleDomReady, this));
     },
 
-    handleDomReady : function() {
+    _handleDomReady : function() {
         this._sections = Y.all('section');
 
         this._sections.addClass('future');
@@ -17,7 +17,7 @@ var Navigation = Y.Base.create('navigation', Y.Base, [], {
         this._getCurrentSection().addClass('present');
     },
 
-    handleKeyPress : function(ev) {
+    _handleKeyPress : function(ev) {
         if (ev.keyCode == 37) {
             this._showPreviousSlide();
         } else if (ev.keyCode == 39) {
