@@ -104,6 +104,58 @@ section {
     opacity 800ms cubic-bezier(0.260, 0.860, 0.440, 0.985);
 }
 
+/* Navigation classes */
+.yui3-navigationcontrols {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    width: 90px;
+    height: 25px;
+}
+
+.yui3-navigationbutton {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
+    opacity: 0.8;
+
+    -moz-transform: scale(.9999);
+
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+
+    cursor: pointer;
+}
+
+.yui3-navigationbutton-next {
+    top: 0;
+    right: 0;
+    border-left: 22px solid #13daec;
+}
+
+.yui3-navigationbutton-next:hover {
+    border-left-color: #71e9f4;
+}
+
+.yui3-navigationbutton-previous {
+    top: 0;
+    left: 0;
+    border-right: 22px solid #13daec;
+}
+
+.yui3-navigationbutton-previous:hover {
+    border-right-color: #71e9f4;
+}
+
+.yui3-navigationbutton-disabled {
+    opacity: 0.05;
+    cursor: default;
+}
+
 /* DEBUG classes */
 .debug>.slides {
     border: 1px solid red;
