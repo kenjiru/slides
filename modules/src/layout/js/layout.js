@@ -1,4 +1,4 @@
-var Layout = Y.Base.create('layout', Y.Base, [], {
+Y.namespace('slides').Layout = Y.Base.create('layout', Y.Base, [], {
     initializer : function() {
         Y.on('windowresize', Y.bind(this.setLayout, this));
 

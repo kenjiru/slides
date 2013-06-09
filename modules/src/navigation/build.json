@@ -1,0 +1,13 @@
+{
+    "name" : "navigation",
+    "builds" : {
+        "navigation" : {
+            "jsfiles" : [
+                "js/navigation.js"
+            ],
+            "config" : {
+                "use" : [ "base", "node", "event", "widget", "widget-parent", "widget-child" ]
+            }
+        }
+    }
+}

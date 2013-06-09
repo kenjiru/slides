@@ -10,8 +10,10 @@ YUI_config = {
             base: 'modules/build/',
 
             modules : {
-                slides : {},
-                foo : {}
+                'slides' : {},
+                'navigation' : {},
+                'navigation-controls' : {},
+                'layout' : {}
             }
         }
     }

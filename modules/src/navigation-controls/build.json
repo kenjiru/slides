@@ -1,0 +1,14 @@
+{
+    "name" : "navigation-controls",
+    "builds" : {
+        "navigation-controls" : {
+            "jsfiles" : [
+                "js/navigation-button.js",
+                "js/navigation-controls.js"
+            ],
+            "config" : {
+                "use" : [ "node", "event", "widget", "widget-parent", "widget-child" ]
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-var Navigation = Y.Base.create('navigation', Y.Base, [], {
+Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
     _sections : null,
     _currentIndex : 0,
 

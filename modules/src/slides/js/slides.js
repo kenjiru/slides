@@ -1,6 +1,6 @@
 Y.on('domready', function(){
-    new Layout();
-    Y.navigation = new Navigation();
+    new Y.slides.Layout();
+    Y.navigation = new Y.slides.Navigation();
 
-    new NavigationControls().render();
+    new Y.slides.NavigationControls().render();
 });

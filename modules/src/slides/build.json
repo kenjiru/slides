@@ -3,13 +3,10 @@
     "builds" : {
         "slides" : {
             "jsfiles" : [
-                "js/layout.js",
-                "js/navigation.js",
-                "js/navigation-controls.js",
                 "js/slides.js"
             ],
             "config" : {
-                "use" : [ "base", "node", "event", "widget", "widget-parent", "widget-child" ]
+                "use" : [ "layout", "navigation", "navigation-controls" ]
             }
         }
     }

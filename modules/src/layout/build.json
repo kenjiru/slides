@@ -1,0 +1,13 @@
+{
+    "name" : "layout",
+    "builds" : {
+        "layout" : {
+            "jsfiles" : [
+                "js/layout.js"
+            ],
+            "config" : {
+                "use" : [ "base", "node", "event" ]
+            }
+        }
+    }
+}
