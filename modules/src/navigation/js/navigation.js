@@ -12,12 +12,27 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
     },
 
     _initializeSections : function() {
-        this._sections = Y.all('section');
+        this._findTopLevelSections();
+        this._markPresentSection();
+        this._markStackSections();
+    },
 
+    _findTopLevelSections : function() {
+        this._sections = Y.all('.slides>section');
         this._sections.addClass('future');
+    },
 
+    _markPresentSection : function() {
         this._getCurrent().removeClass('future');
         this._getCurrent().addClass('present');
+    },
+
+    _markStackSections : function() {
+        this._sections.each(function(section){
+            if (section.all('section').size() > 0) {
+                section.addClass('stack');
+            }
+        });
     },
 
     _handleKeyPress : function(ev) {
