@@ -29,31 +29,33 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
     },
 
     showPrevious : function() {
-        if (this.hasPrevious()) {
-            this._getCurrent().removeClass('present');
-            this._getCurrent().addClass('future');
+        if (!this.hasPrevious())
+            return;
 
-            this._getPrevious().removeClass('past');
-            this._getPrevious().addClass('present');
+        this._getCurrent().removeClass('present');
+        this._getCurrent().addClass('future');
 
-            this._currentIndex -= 1;
+        this._getPrevious().removeClass('past');
+        this._getPrevious().addClass('present');
 
-            this.fire('changed');
-        }
+        this._currentIndex -= 1;
+
+        this.fire('changed');
     },
 
     showNext : function() {
-        if (this.hasNext()) {
-            this._getCurrent().removeClass('present');
-            this._getCurrent().addClass('past');
+        if (!this.hasNext())
+            return;
 
-            this._getNext().removeClass('future');
-            this._getNext().addClass('present');
+        this._getCurrent().removeClass('present');
+        this._getCurrent().addClass('past');
 
-            this._currentIndex += 1;
+        this._getNext().removeClass('future');
+        this._getNext().addClass('present');
 
-            this.fire('changed');
-        }
+        this._currentIndex += 1;
+
+        this.fire('changed');
     },
 
     _getCurrent : function() {
