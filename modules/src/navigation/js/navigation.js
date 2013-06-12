@@ -1,6 +1,6 @@
 Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
     _sections : null,
-    _currentIndex : 0,
+    _horizIndex : 0,
 
     initializer : function() {
         // IE<9 need to listen to key event on the document
@@ -23,8 +23,8 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
     },
 
     _markPresentSection : function() {
-        this._getCurrent().removeClass('future');
-        this._getCurrent().addClass('present');
+        this._getCurrentHoriz().removeClass('future');
+        this._getCurrentHoriz().addClass('present');
     },
 
     _markStackSections : function() {
@@ -37,59 +37,59 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
 
     _handleKeyPress : function(ev) {
         if (ev.keyCode == 37) {
-            this.showPrevious();
+            this.showPreviousHoriz();
         } else if (ev.keyCode == 39) {
-            this.showNext();
+            this.showNextHoriz();
         }
     },
 
-    showPrevious : function() {
-        if (!this.hasPrevious())
+    showPreviousHoriz : function() {
+        if (!this.hasPreviousHoriz())
             return;
 
-        this._getCurrent().removeClass('present');
-        this._getCurrent().addClass('future');
+        this._getCurrentHoriz().removeClass('present');
+        this._getCurrentHoriz().addClass('future');
 
-        this._getPrevious().removeClass('past');
-        this._getPrevious().addClass('present');
+        this._getPreviousHoriz().removeClass('past');
+        this._getPreviousHoriz().addClass('present');
 
-        this._currentIndex -= 1;
+        this._horizIndex -= 1;
 
         this.fire('changed');
     },
 
-    showNext : function() {
-        if (!this.hasNext())
+    showNextHoriz : function() {
+        if (!this.hasNextHoriz())
             return;
 
-        this._getCurrent().removeClass('present');
-        this._getCurrent().addClass('past');
+        this._getCurrentHoriz().removeClass('present');
+        this._getCurrentHoriz().addClass('past');
 
-        this._getNext().removeClass('future');
-        this._getNext().addClass('present');
+        this._getNextHoriz().removeClass('future');
+        this._getNextHoriz().addClass('present');
 
-        this._currentIndex += 1;
+        this._horizIndex += 1;
 
         this.fire('changed');
     },
 
-    _getCurrent : function() {
-        return this._sections.item(this._currentIndex);
+    _getCurrentHoriz : function() {
+        return this._sections.item(this._horizIndex);
     },
 
-    _getPrevious : function() {
-        return this._sections.item(this._currentIndex - 1);
+    _getPreviousHoriz : function() {
+        return this._sections.item(this._horizIndex - 1);
     },
 
-    _getNext : function() {
-        return this._sections.item(this._currentIndex + 1);
+    _getNextHoriz : function() {
+        return this._sections.item(this._horizIndex + 1);
     },
 
-    hasNext : function() {
-        return this._currentIndex < this._sections.size() - 1;
+    hasNextHoriz : function() {
+        return this._horizIndex < this._sections.size() - 1;
     },
 
-    hasPrevious : function() {
-        return this._currentIndex > 0;
+    hasPreviousHoriz : function() {
+        return this._horizIndex > 0;
     }
 });
