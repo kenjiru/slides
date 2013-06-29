@@ -1,0 +1,11 @@
+{
+    "name"       : "gallery-slides",
+    "displayName": "Gallery: gallery-slides",
+    "description": "*Summary Goes Here*",
+    "author"     : [ "kenjiru" ],
+    "use"        : [ "gallery-slides" ],
+
+    "tags": [ "gallery" ],
+
+    "examples": []
+}
