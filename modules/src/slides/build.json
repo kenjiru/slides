@@ -6,7 +6,7 @@
                 "js/slides.js"
             ],
             "config" : {
-                "use" : [ "layout", "navigation", "navigation-controls" ]
+                "use" : [ "base", "node", "event", "widget", "widget-parent", "widget-child" ]
             }
         }
     }
