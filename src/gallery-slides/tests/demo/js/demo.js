@@ -1,0 +1,1 @@
+YUI().use('gallery-slides', function(Y){});
