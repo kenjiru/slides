@@ -1,5 +1,5 @@
 var connect = require('connect'),
-    port = process.env.PORT;
+    port = process.env.PORT || '8080';
 
 console.log("Listening on " + port);
 
