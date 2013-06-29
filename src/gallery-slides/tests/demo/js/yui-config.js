@@ -11,7 +11,9 @@ YUI_config = {
             base: '/build/',
 
             modules : {
-                'gallery-slides' : {}
+                'gallery-slides' : {
+                    skinnable: true
+                }
             }
         }
     }

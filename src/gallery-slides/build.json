@@ -1,16 +1,17 @@
 {
-    "name" : "slides",
+    "name" : "gallery-slides",
     "builds" : {
-        "slides" : {
+        "gallery-slides" : {
             "jsfiles" : [
                 "js/layout.js",
+                "js/navigation.js",
                 "js/navigation-button.js",
                 "js/navigation-controls.js",
-                "js/navigation.js",
                 "js/slides.js"
             ],
             "config" : {
-                "use" : [ "base", "node", "event", "widget", "widget-parent", "widget-child" ]
+                "use" : [ "base", "node", "event", "widget", "widget-parent", "widget-child" ],
+                "skinnable" : true
             }
         }
     }
