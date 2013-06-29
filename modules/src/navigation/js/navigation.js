@@ -1,9 +1,10 @@
 Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
     _sections : null,
     _horizIndex : 0,
+    _vertIndex : 0,
 
     initializer : function() {
-        // IE<9 need to listen to key event on the document
+        // IE<9 needs to listen to key event on the document
         Y.one(document).on('keydown', Y.bind(this._handleKeyPress, this));
 
         this.publish('changed');
@@ -37,36 +38,36 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
 
     _handleKeyPress : function(ev) {
         if (ev.keyCode == 37) {
-            this.showPreviousHoriz();
+            this.showLeft();
         } else if (ev.keyCode == 39) {
-            this.showNextHoriz();
+            this.showRight();
         }
     },
 
-    showPreviousHoriz : function() {
-        if (!this.hasPreviousHoriz())
+    showLeft : function() {
+        if (!this.hasLeft())
             return;
 
         this._getCurrentHoriz().removeClass('present');
         this._getCurrentHoriz().addClass('future');
 
-        this._getPreviousHoriz().removeClass('past');
-        this._getPreviousHoriz().addClass('present');
+        this._getLeft().removeClass('past');
+        this._getLeft().addClass('present');
 
         this._horizIndex -= 1;
 
         this.fire('changed');
     },
 
-    showNextHoriz : function() {
-        if (!this.hasNextHoriz())
+    showRight : function() {
+        if (!this.hasRight())
             return;
 
         this._getCurrentHoriz().removeClass('present');
         this._getCurrentHoriz().addClass('past');
 
-        this._getNextHoriz().removeClass('future');
-        this._getNextHoriz().addClass('present');
+        this._getRight().removeClass('future');
+        this._getRight().addClass('present');
 
         this._horizIndex += 1;
 
@@ -77,19 +78,19 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
         return this._sections.item(this._horizIndex);
     },
 
-    _getPreviousHoriz : function() {
+    _getLeft : function() {
         return this._sections.item(this._horizIndex - 1);
     },
 
-    _getNextHoriz : function() {
+    _getRight : function() {
         return this._sections.item(this._horizIndex + 1);
     },
 
-    hasNextHoriz : function() {
+    hasRight : function() {
         return this._horizIndex < this._sections.size() - 1;
     },
 
-    hasPreviousHoriz : function() {
+    hasLeft : function() {
         return this._horizIndex > 0;
     }
 });

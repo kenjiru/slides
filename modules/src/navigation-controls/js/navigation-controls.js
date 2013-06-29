@@ -6,14 +6,14 @@ Y.namespace('slides').NavigationControls = Y.Base.create('navigationControls', Y
     initializer : function() {
         var previous = new NavigationButton({
             name : 'previous',
-            clickCallback : Y.bind(Y.navigation.showPreviousHoriz, Y.navigation),
-            checkCallback : Y.bind(Y.navigation.hasPreviousHoriz, Y.navigation)
+            clickCallback : Y.bind(Y.navigation.showLeft, Y.navigation),
+            checkCallback : Y.bind(Y.navigation.hasLeft, Y.navigation)
         });
 
         var next = new NavigationButton({
             name : 'next',
-            clickCallback : Y.bind(Y.navigation.showNextHoriz, Y.navigation),
-            checkCallback : Y.bind(Y.navigation.hasNextHoriz, Y.navigation)
+            clickCallback : Y.bind(Y.navigation.showRight, Y.navigation),
+            checkCallback : Y.bind(Y.navigation.hasRight, Y.navigation)
         });
 
         this.add(previous);
