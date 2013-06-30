@@ -43,20 +43,6 @@ section {
     visibility: visible;
 }
 
-.slides>section.past {
-    -webkit-transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0);
-    -moz-transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0);
-    -ms-transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0);
-}
-
-.slides>section.future {
-    -webkit-transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0);
-    -moz-transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0);
-    -ms-transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0);
-    transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0);
-}
-
 .slides {
     -webkit-transition: -webkit-perspective .4s ease;
     -moz-transition: -moz-perspective .4s ease;
@@ -102,6 +88,20 @@ section {
     transform 800ms cubic-bezier(0.260, 0.860, 0.440, 0.985),
     visibility 800ms cubic-bezier(0.260, 0.860, 0.440, 0.985),
     opacity 800ms cubic-bezier(0.260, 0.860, 0.440, 0.985);
+}
+
+.slides>section.past {
+    -webkit-transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0);
+    -moz-transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0);
+    -ms-transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0) rotateY(-90deg) translate3d(-100%, 0, 0);
+}
+
+.slides>section.future {
+    -webkit-transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0);
+    -moz-transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0);
+    -ms-transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0) rotateY(90deg) translate3d(100%, 0, 0);
 }
 
 /* Navigation classes */
