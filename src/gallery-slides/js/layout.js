@@ -71,8 +71,12 @@ Y.namespace('slides').Layout = Y.Base.create('layout', Y.Base, [], {
             sectionHeight = section.get('clientHeight'),
             sectionTop = (slidesHeight - sectionHeight) / 2;
 
-        if (sectionTop > 0) {
+        if (!this._isStack(section) && sectionTop > 0) {
             section.setStyle('top', sectionTop);
         }
+    },
+
+    _isStack : function(section) {
+        return section.hasClass('stack');
     }
 });

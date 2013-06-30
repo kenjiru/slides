@@ -1,5 +1,6 @@
 Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
     _sections : null,
+    _subSections : null,
     _index : 0,
     _subIndex : 0,
 
@@ -13,19 +14,30 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
     },
 
     _initializeSections : function() {
-        this._findTopLevelSections();
-        this._markPresentSection();
+        this._sections = Y.all('.slides>section');
+
+        this._checkSubsections();
+
+        this._markAllFuture();
+        this._markCurrent();
         this._markStackSections();
     },
 
-    _findTopLevelSections : function() {
-        this._sections = Y.all('.slides>section');
+    _markAllFuture : function() {
         this._sections.addClass('future');
     },
 
-    _markPresentSection : function() {
-        this._getCurrentSection().removeClass('future');
-        this._getCurrentSection().addClass('present');
+    _markCurrent : function() {
+        var currentSection = this._getCurrentSection(),
+            currentSubSection = this._getCurrentSubSection();
+
+        currentSection.removeClass('future');
+        currentSection.addClass('present');
+
+        if (currentSubSection) {
+            currentSubSection.removeClass('future');
+            currentSubSection.addClass('present');
+        }
     },
 
     _markStackSections : function() {
@@ -56,6 +68,8 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
 
         this._index -= 1;
 
+        this._checkSubsections();
+
         this.fire('changed');
     },
 
@@ -71,11 +85,42 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
 
         this._index += 1;
 
+        this._checkSubsections();
+
         this.fire('changed');
+    },
+
+    _checkSubsections : function() {
+        var currentSection = this._getCurrentSection(),
+            subSections = currentSection.all('section'),
+            currentSubIndex;
+
+        if (subSections.size() > 0) {
+            this._subSections = subSections;
+            currentSubIndex = currentSection.getAttribute('subIndex') || '';
+
+            if (currentSubIndex == '') {
+                currentSubIndex = 0;
+                currentSection.setAttribute('subIndex', currentSubIndex);
+            }
+
+            this._subIndex = currentSubIndex;
+        } else {
+            this._subSections = null;
+            this._subIndex = null;
+        }
     },
 
     _getCurrentSection : function() {
         return this._sections.item(this._index);
+    },
+
+    _getCurrentSubSection : function() {
+        if (this._subSections) {
+            return this._subSections.item(this._subIndex);
+        }
+
+        return null;
     },
 
     _getLeft : function() {
@@ -92,5 +137,13 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
 
     hasLeft : function() {
         return this._index > 0;
+    },
+
+    hasUp : function() {
+        return this._subSections && this._subIndex > 0;
+    },
+
+    hasDown : function() {
+        return this._subSections && this._subIndex < this._subSections.size() - 1;
     }
 });
