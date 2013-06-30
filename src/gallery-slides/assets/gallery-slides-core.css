@@ -131,23 +131,23 @@ section {
     cursor: pointer;
 }
 
-.yui3-navigationbutton-next {
+.yui3-navigationbutton-right {
     top: 0;
     right: 0;
     border-left: 22px solid #13daec;
 }
 
-.yui3-navigationbutton-next:hover {
+.yui3-navigationbutton-right:hover {
     border-left-color: #71e9f4;
 }
 
-.yui3-navigationbutton-previous {
+.yui3-navigationbutton-left {
     top: 0;
     left: 0;
     border-right: 22px solid #13daec;
 }
 
-.yui3-navigationbutton-previous:hover {
+.yui3-navigationbutton-left:hover {
     border-right-color: #71e9f4;
 }
 

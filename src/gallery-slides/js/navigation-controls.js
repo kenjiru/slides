@@ -1,25 +1,22 @@
 Y.namespace('slides').NavigationControls = Y.Base.create('navigationControls', Y.Widget, [ Y.WidgetParent ], {
     CONTENT_TEMPLATE : null,
-    _nextButton : null,
-    _previousButton : null,
+    _moveRightButton : null,
+    _moveLeftButton : null,
 
     initializer : function() {
-        var previous = new NavigationButton({
-            name : 'previous',
-            clickCallback : Y.bind(Y.navigation.showLeft, Y.navigation),
-            checkCallback : Y.bind(Y.navigation.hasLeft, Y.navigation)
-        });
-
-        var next = new NavigationButton({
-            name : 'next',
+        this._moveRightButton = new NavigationButton({
+            name : 'right',
             clickCallback : Y.bind(Y.navigation.showRight, Y.navigation),
             checkCallback : Y.bind(Y.navigation.hasRight, Y.navigation)
         });
 
-        this.add(previous);
-        this.add(next);
+        this._moveLeftButton = new NavigationButton({
+            name : 'left',
+            clickCallback : Y.bind(Y.navigation.showLeft, Y.navigation),
+            checkCallback : Y.bind(Y.navigation.hasLeft, Y.navigation)
+        });
 
-        this._nextButton = next;
-        this._previousButton = previous;
+        this.add(this._moveRightButton);
+        this.add(this._moveLeftButton);
     }
 });
