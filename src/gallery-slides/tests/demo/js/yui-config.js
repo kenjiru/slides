@@ -1,6 +1,6 @@
 YUI_config = {
     debug: true,
-    combine: false,
+    combine: true,
     base: 'http://yui.yahooapis.com/3.10.1/build/',
 
     groups : {
