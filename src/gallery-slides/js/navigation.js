@@ -1,7 +1,7 @@
 Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
     _sections : null,
-    _horizIndex : 0,
-    _vertIndex : 0,
+    _index : 0,
+    _subIndex : 0,
 
     initializer : function() {
         // IE<9 needs to listen to key event on the document
@@ -24,8 +24,8 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
     },
 
     _markPresentSection : function() {
-        this._getCurrentHoriz().removeClass('future');
-        this._getCurrentHoriz().addClass('present');
+        this._getCurrentSection().removeClass('future');
+        this._getCurrentSection().addClass('present');
     },
 
     _markStackSections : function() {
@@ -48,13 +48,13 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
         if (!this.hasLeft())
             return;
 
-        this._getCurrentHoriz().removeClass('present');
-        this._getCurrentHoriz().addClass('future');
+        this._getCurrentSection().removeClass('present');
+        this._getCurrentSection().addClass('future');
 
         this._getLeft().removeClass('past');
         this._getLeft().addClass('present');
 
-        this._horizIndex -= 1;
+        this._index -= 1;
 
         this.fire('changed');
     },
@@ -63,34 +63,34 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
         if (!this.hasRight())
             return;
 
-        this._getCurrentHoriz().removeClass('present');
-        this._getCurrentHoriz().addClass('past');
+        this._getCurrentSection().removeClass('present');
+        this._getCurrentSection().addClass('past');
 
         this._getRight().removeClass('future');
         this._getRight().addClass('present');
 
-        this._horizIndex += 1;
+        this._index += 1;
 
         this.fire('changed');
     },
 
-    _getCurrentHoriz : function() {
-        return this._sections.item(this._horizIndex);
+    _getCurrentSection : function() {
+        return this._sections.item(this._index);
     },
 
     _getLeft : function() {
-        return this._sections.item(this._horizIndex - 1);
+        return this._sections.item(this._index - 1);
     },
 
     _getRight : function() {
-        return this._sections.item(this._horizIndex + 1);
+        return this._sections.item(this._index + 1);
     },
 
     hasRight : function() {
-        return this._horizIndex < this._sections.size() - 1;
+        return this._index < this._sections.size() - 1;
     },
 
     hasLeft : function() {
-        return this._horizIndex > 0;
+        return this._index > 0;
     }
 });
