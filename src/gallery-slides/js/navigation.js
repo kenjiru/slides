@@ -16,28 +16,22 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
     _initializeSections : function() {
         this._sections = Y.all('.slides>section');
 
-        this._checkSubsections();
-
         this._markAllFuture();
-        this._markCurrent();
         this._markStackSections();
+        this._markCurrentSection();
+
+        this._checkSubsections();
     },
 
     _markAllFuture : function() {
         this._sections.addClass('future');
     },
 
-    _markCurrent : function() {
-        var currentSection = this._getCurrentSection(),
-            currentSubSection = this._getCurrentSubSection();
+    _markCurrentSection : function() {
+        var currentSection = this._getCurrentSection();
 
         currentSection.removeClass('future');
         currentSection.addClass('present');
-
-        if (currentSubSection) {
-            currentSubSection.removeClass('future');
-            currentSubSection.addClass('present');
-        }
     },
 
     _markStackSections : function() {
@@ -53,6 +47,10 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
             this.showLeft();
         } else if (ev.keyCode == 39) {
             this.showRight();
+        } else if (ev.keyCode == 38) {
+            this.showUp();
+        } else if (ev.keyCode == 40) {
+            this.showDown();
         }
     },
 
@@ -65,6 +63,8 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
 
         this._getLeft().removeClass('past');
         this._getLeft().addClass('present');
+
+        this._saveSubIndex();
 
         this._index -= 1;
 
@@ -83,6 +83,8 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
         this._getRight().removeClass('future');
         this._getRight().addClass('present');
 
+        this._saveSubIndex();
+
         this._index += 1;
 
         this._checkSubsections();
@@ -90,21 +92,61 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
         this.fire('changed');
     },
 
+    showUp : function() {
+        if (!this.hasUp())
+            return;
+
+        this._getCurrentSubSection().removeClass('present');
+        this._getCurrentSubSection().addClass('future');
+
+        this._getUp().removeClass('past');
+        this._getUp().addClass('present');
+
+        this._subIndex -= 1;
+
+        this.fire('changed');
+    },
+
+    showDown : function() {
+        if (!this.hasDown())
+            return;
+
+        this._getCurrentSubSection().removeClass('present');
+        this._getCurrentSubSection().addClass('past');
+
+        this._getDown().removeClass('future');
+        this._getDown().addClass('present');
+
+        this._subIndex += 1;
+
+        this.fire('changed');
+    },
+
+    _saveSubIndex : function() {
+        var currentSection = this._getCurrentSection();
+
+        if (currentSection.hasClass('stack')) {
+            currentSection.setAttribute('subIndex', this._subIndex);
+        }
+    },
+
     _checkSubsections : function() {
         var currentSection = this._getCurrentSection(),
-            subSections = currentSection.all('section'),
+            currentSubSection,
             currentSubIndex;
 
-        if (subSections.size() > 0) {
-            this._subSections = subSections;
-            currentSubIndex = currentSection.getAttribute('subIndex') || '';
+        if (currentSection.hasClass('stack')) {
+            this._subSections = currentSection.all('section');
 
-            if (currentSubIndex == '') {
-                currentSubIndex = 0;
-                currentSection.setAttribute('subIndex', currentSubIndex);
-            }
+            currentSubIndex = currentSection.getAttribute('subIndex') || '0';
+            currentSubIndex = parseInt(currentSubIndex);
 
             this._subIndex = currentSubIndex;
+
+            currentSubSection = this._getCurrentSubSection();
+            currentSubSection.removeClass('past');
+            currentSubSection.removeClass('future');
+            currentSubSection.addClass('present');
         } else {
             this._subSections = null;
             this._subIndex = null;
@@ -129,6 +171,14 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
 
     _getRight : function() {
         return this._sections.item(this._index + 1);
+    },
+
+    _getUp : function() {
+        return this._subSections.item(this._subIndex - 1);
+    },
+
+    _getDown : function() {
+        return this._subSections.item(this._subIndex + 1);
     },
 
     hasRight : function() {
