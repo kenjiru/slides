@@ -10,6 +10,6 @@
         "shifter": "latest"
     },
     "scripts": {
-        "postinstall": "cd ./src/; ../../node_modules/shifter/bin/shifter --walk --build-dir=../build"
+        "postinstall": "cd ./src/; ../node_modules/shifter/bin/shifter --walk --build-dir=../build"
     }
 }
