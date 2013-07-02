@@ -102,7 +102,7 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
         this._getUp().removeClass('past');
         this._getUp().addClass('present');
 
-        this._subIndex -= 1;
+        this._subIndex--;
 
         this.fire('changed');
     },
@@ -117,7 +117,7 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
         this._getDown().removeClass('future');
         this._getDown().addClass('present');
 
-        this._subIndex += 1;
+        this._subIndex++;
 
         this.fire('changed');
     },
@@ -195,5 +195,12 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
 
     hasDown : function() {
         return this._subSections && this._subIndex < this._subSections.size() - 1;
+    },
+
+    getCurrentIndex : function() {
+        return {
+            index : this._index,
+            subIndex : this._subIndex || 0
+        };
     }
 });
