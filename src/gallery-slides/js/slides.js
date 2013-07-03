@@ -4,4 +4,5 @@ Y.on('domready', function(){
     new Y.slides.Layout();
     new Y.slides.NavigationControls().render();
     new Y.slides.ProgressBar().render();
+    new Y.slides.Overview();
 });

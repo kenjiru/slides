@@ -8,6 +8,7 @@
                 "js/navigation-button.js",
                 "js/navigation-controls.js",
                 "js/progress-bar.js",
+                "js/overview.js",
                 "js/slides.js"
             ],
             "config" : {
