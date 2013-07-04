@@ -121,7 +121,51 @@ body {
     transform: translate3d(0, 300px, 0) rotateX(-70deg) translate3d(0, 300px, 0);
 }
 
-/* Navigation classes */
+/* Overview mode */
+.overview .slides {
+    -webkit-perspective-origin: 0% 0%;
+    -moz-perspective-origin: 0% 0%;
+    -ms-perspective-origin: 0% 0%;
+    perspective-origin: 0% 0%;
+
+    -webkit-perspective: 700px;
+    -moz-perspective: 700px;
+    -ms-perspective: 700px;
+    perspective: 700px;
+}
+
+.overview .slides section {
+    height: 600px;
+    overflow: hidden;
+    opacity: 1!important;
+    visibility: visible!important;
+    cursor: pointer;
+    background: rgba(0,0,0,0.1);
+}
+.overview .slides section .fragment {
+    opacity: 1;
+}
+.overview .slides section:after,
+.overview .slides section:before {
+    display: none !important;
+}
+.overview .slides section>section {
+    opacity: 1;
+    cursor: pointer;
+}
+.overview .slides section:hover {
+    background: rgba(0,0,0,0.3);
+}
+.overview .slides section.present {
+    background: rgba(0,0,0,0.3);
+}
+.overview .slides>section.stack {
+    padding: 0;
+    background: none;
+    overflow: visible;
+}
+
+/* Navigation controls */
 .yui3-navigationcontrols {
     position: fixed;
     bottom: 10px;
