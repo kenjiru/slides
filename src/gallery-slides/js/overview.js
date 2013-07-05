@@ -22,12 +22,19 @@ Y.namespace('slides').Overview = Y.Base.create('overview', Y.Base, [], {
     },
 
     _enableOverview : function() {
-        var slidesContainer = Y.one('.slides-container'),
-            sections = Y.all('.slides>section'),
-            current = Y.navigation.getCurrentIndex(),
-            noSections = sections.size();
+        var slidesContainer = Y.one('.slides-container');
 
         slidesContainer.addClass('overview');
+
+        this._positionSections();
+
+        console.log('overview enabled!');
+        this._overviewEnabled = true;
+    },
+
+    _positionSections : function() {
+        var sections = Y.all('.slides>section'),
+            current = Y.navigation.getCurrentIndex();
 
         sections.each(function(section, i){
             var xTranslate = (i - current.index) * 105,
@@ -36,28 +43,29 @@ Y.namespace('slides').Overview = Y.Base.create('overview', Y.Base, [], {
             this._setTransform(section, transformStr);
 
             if(section.hasClass('stack')) {
-                var subSections = section.all('section'),
-                    subIndex = section.getAttribute('subIndex') || '0';
-
-                subIndex = parseInt(subIndex, 10);
-
-                subSections.each(function(subSection, i) {
-                    var yTranslate = (i - subIndex) * 105,
-                        translateStr = 'translate(0%, ' + yTranslate + '%)';
-
-                    this._setTransform(subSection, translateStr);
-
-                    subSection.setStyle('top', '-340px');
-                }, this);
-
-                section.setStyle('top', '0');
+                this._positionSubSections(section);
             } else {
                 section.setStyle('top', '-340px');
             }
         }, this);
+    },
 
-        console.log('overview enabled!');
-        this._overviewEnabled = true;
+    _positionSubSections : function(section) {
+        var subSections = section.all('section'),
+            subIndex = section.getAttribute('subIndex') || '0';
+
+        subIndex = parseInt(subIndex, 10);
+
+        subSections.each(function(subSection, i) {
+            var yTranslate = (i - subIndex) * 105,
+                translateStr = 'translate(0%, ' + yTranslate + '%)';
+
+            this._setTransform(subSection, translateStr);
+
+            subSection.setStyle('top', '-340px');
+        }, this);
+
+        section.setStyle('top', '0');
     },
 
     _setTransform : function(node, transformStr) {
