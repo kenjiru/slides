@@ -17,14 +17,11 @@ Y.namespace('slides').Layout = Y.Base.create('layout', Y.Base, [], {
     },
 
     setLayout : function() {
-        var sections = Y.all('section');
-
-        this.setSlidesLayout();
-
-        sections.each(this.setSectionLayout, this);
+        this._setZoom();
+        this._setPosition();
     },
 
-    setSlidesLayout : function() {
+    _setZoom : function() {
         var slides = Y.one('.slides'),
             slidesHeight = slides.get('clientHeight'),
             slidesWidth = slides.get('clientWidth'),
@@ -65,15 +62,19 @@ Y.namespace('slides').Layout = Y.Base.create('layout', Y.Base, [], {
         }
     },
 
-    setSectionLayout : function(section) {
+    _setPosition : function() {
         var slides = Y.one('.slides'),
-            slidesHeight = slides.get('clientHeight'),
-            sectionHeight = section.get('clientHeight'),
-            sectionTop = (slidesHeight - sectionHeight) / 2;
+            sections = Y.all('section'),
+            slidesHeight = slides.get('clientHeight');
 
-        if (!this._isStack(section) && sectionTop > 0) {
-            section.setStyle('top', sectionTop);
-        }
+        sections.each(function(section) {
+            var sectionHeight = section.get('clientHeight'),
+                sectionTop = (slidesHeight - sectionHeight) / 2;
+
+            if (!this._isStack(section) && sectionTop > 0) {
+                section.setStyle('top', sectionTop);
+            }
+        }, this);
     },
 
     _isStack : function(section) {
