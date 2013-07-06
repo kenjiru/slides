@@ -68,6 +68,37 @@ Y.namespace('slides').Overview = Y.Base.create('overview', Y.Base, [], {
         section.setStyle('top', '0');
     },
 
+    _disableOverview : function() {
+        var slidesContainer = Y.one('.slides-container');
+
+        slidesContainer.removeClass('overview');
+
+        this._disableForSections();
+
+        console.log('overview disabled!');
+        this._overviewEnabled = false;
+    },
+
+    _disableForSections : function() {
+        var sections = Y.all('.slides>section');
+
+        sections.each(function(section, i){
+            this._setTransform(section, '');
+
+            if(section.hasClass('stack')) {
+                this._disableForSubSections(section);
+            }
+        }, this);
+    },
+
+    _disableForSubSections : function(section) {
+        var subSections = section.all('section');
+
+        subSections.each(function(subSection) {
+            this._setTransform(subSection, '');
+        }, this);
+    },
+
     _setTransform : function(node, transformStr) {
         node.setStyles({
             '-webkit-transform' : transformStr,
@@ -76,14 +107,5 @@ Y.namespace('slides').Overview = Y.Base.create('overview', Y.Base, [], {
             'transform' : transformStr
         });
 
-    },
-
-    _disableOverview : function() {
-        var slidesContainer = Y.one('.slides-container');
-
-        slidesContainer.removeClass('overview');
-
-        console.log('overview disabled!');
-        this._overviewEnabled = false;
     }
 });
