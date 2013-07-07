@@ -15,7 +15,7 @@ var NavigationButton = Y.Base.create('navigationButton', Y.Widget, [ Y.WidgetChi
         var contentBox = this.get('contentBox');
 
         contentBox.on('click', this._handleClick, this);
-        this._app.navigation.on('navigation:changed', this._checkEnabled, this);
+        this._app.on('navigation:changed', this._checkEnabled, this);
     },
 
     _handleClick : function() {
