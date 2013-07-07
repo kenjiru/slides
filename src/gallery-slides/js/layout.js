@@ -1,11 +1,14 @@
 Y.namespace('slides').Layout = Y.Base.create('layout', Y.Base, [], {
     _app : null,
+    _overviewEnabled : false,
 
     initializer : function(config) {
         this._app = config.app;
 
         Y.on('windowresize', Y.bind(this._onWindowResize, this));
         this._onWindowResize();
+
+        this._app.on('overview:changed', this._onOverviewChanged, this);
     },
 
     // TODO Does not work
@@ -22,6 +25,17 @@ Y.namespace('slides').Layout = Y.Base.create('layout', Y.Base, [], {
     _onWindowResize : function() {
         this._setZoom();
         this._setPosition();
+    },
+
+    _onOverviewChanged : function(ev) {
+        this._overviewEnabled = ev.overviewEnabled;
+
+        if(ev.overviewEnabled) {
+            this._setOverviewPosition();
+        } else {
+            this._setZoom();
+            this._setPresentationPosition();
+        }
     },
 
     _setZoom : function() {
@@ -66,6 +80,12 @@ Y.namespace('slides').Layout = Y.Base.create('layout', Y.Base, [], {
     },
 
     _setPosition : function() {
+        if (!this._overviewEnabled) {
+            this._setPresentationPosition();
+        }
+    },
+
+    _setPresentationPosition : function() {
         var slides = Y.one('.slides'),
             sections = Y.all('section'),
             slidesHeight = slides.get('clientHeight');
@@ -76,6 +96,21 @@ Y.namespace('slides').Layout = Y.Base.create('layout', Y.Base, [], {
 
             if (!this._isStack(section) && sectionTop > 0) {
                 section.setStyle('top', sectionTop);
+            }
+        }, this);
+    },
+
+    _setOverviewPosition : function() {
+        var slides = Y.one('.slides'),
+            sections = Y.all('section');
+
+        slides.setStyle('top', 0);
+
+        sections.each(function(section) {
+            if (this._isStack(section)) {
+                section.setStyle('top', 0);
+            } else {
+                section.setStyle('top', '-340px');
             }
         }, this);
     },
