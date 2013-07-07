@@ -9,7 +9,7 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
         this._app = config.app;
 
         // IE<9 needs to listen to key event on the document
-        Y.one(document).on('keydown', Y.bind(this._handleKeyPress, this));
+        Y.one(document).on('keydown', Y.bind(this._onKeyPress, this));
 
         this.publish('changed');
         this.addTarget(this._app);
@@ -46,7 +46,7 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
         });
     },
 
-    _handleKeyPress : function(ev) {
+    _onKeyPress : function(ev) {
         if (ev.keyCode == 37) {
             this.showLeft();
         } else if (ev.keyCode == 39) {
@@ -55,6 +55,16 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
             this.showUp();
         } else if (ev.keyCode == 40) {
             this.showDown();
+        }
+
+        if (ev.keyCode == 37 || ev.keyCode == 39) {
+            this.fire('changed', {
+                direction : 'leftRight'
+            });
+        } else if (ev.keyCode == 38 || ev.keyCode == 40) {
+            this.fire('changed', {
+                direction : 'upDown'
+            });
         }
     },
 
@@ -80,8 +90,6 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
         this._index -= 1;
 
         this._checkSubsections();
-
-        this.fire('changed');
     },
 
     showRight : function() {
@@ -106,8 +114,6 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
         this._index += 1;
 
         this._checkSubsections();
-
-        this.fire('changed');
     },
 
     showUp : function() {
@@ -121,8 +127,6 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
         this._getUp().addClass('present');
 
         this._subIndex--;
-
-        this.fire('changed');
     },
 
     showDown : function() {
@@ -136,8 +140,6 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
         this._getDown().addClass('present');
 
         this._subIndex++;
-
-        this.fire('changed');
     },
 
     _saveSubIndex : function() {
@@ -220,5 +222,9 @@ Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
             index : this._index,
             subIndex : this._subIndex || 0
         };
+    },
+
+    getCurrentSection : function() {
+        return this._getCurrentSection();
     }
 });
