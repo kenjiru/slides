@@ -1,14 +1,18 @@
 Y.namespace('slides').Navigation = Y.Base.create('navigation', Y.Base, [], {
+    _app : null,
     _sections : null,
     _subSections : null,
     _index : 0,
     _subIndex : 0,
 
-    initializer : function() {
+    initializer : function(config) {
+        this._app = config.app;
+
         // IE<9 needs to listen to key event on the document
         Y.one(document).on('keydown', Y.bind(this._handleKeyPress, this));
 
         this.publish('changed');
+        this.addTarget(this._app);
 
         this._initializeSections();
     },
