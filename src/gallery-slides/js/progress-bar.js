@@ -1,10 +1,14 @@
 Y.namespace('slides').ProgressBar = Y.Base.create('progressBar', Y.Widget, [], {
     CONTENT_TEMPLATE : "<span></span>",
+
+    _app : null,
     _totalSections : 0,
     _currentIndex : 0,
     _sectionIndexArray : [],
 
-    initializer : function() {
+    initializer : function(config) {
+        this._app = config.app;
+
         this._findTotalSlides();
     },
 
@@ -32,12 +36,12 @@ Y.namespace('slides').ProgressBar = Y.Base.create('progressBar', Y.Widget, [], {
     },
 
     bindUI : function() {
-        Y.navigation.on('navigation:changed', this._updateProgress, this);
+        this._app.navigation.on('navigation:changed', this._updateProgress, this);
         Y.on('windowresize', Y.bind(this._updateLayout, this));
     },
 
     _updateProgress : function() {
-        var current = Y.navigation.getCurrentIndex();
+        var current = this._app.navigation.getCurrentIndex();
 
         this._currentIndex = this._sectionIndexArray[current.index] + current.subIndex;
         this._updateLayout();

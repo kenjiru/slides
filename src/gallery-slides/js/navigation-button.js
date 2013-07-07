@@ -1,8 +1,11 @@
 var NavigationButton = Y.Base.create('navigationButton', Y.Widget, [ Y.WidgetChild ], {
     CONTENT_TEMPLATE : null,
+
+    _app : null,
     _className : null,
 
     initializer : function(config) {
+        this._app = config.app;
         this._className = this.getClassName(config.name);
 
         this._checkEnabled();
@@ -12,7 +15,7 @@ var NavigationButton = Y.Base.create('navigationButton', Y.Widget, [ Y.WidgetChi
         var contentBox = this.get('contentBox');
 
         contentBox.on('click', this._handleClick, this);
-        Y.navigation.on('navigation:changed', this._checkEnabled, this);
+        this._app.navigation.on('navigation:changed', this._checkEnabled, this);
     },
 
     _handleClick : function() {

@@ -1,10 +1,11 @@
 Y.namespace('slides').Overview = Y.Base.create('overview', Y.Base, [], {
+    _app : null,
     _overviewEnabled : false,
 
-    initializer : function() {
-        console.log('overview initialized!');
-
+    initializer : function(config) {
         Y.one(document).on('keydown', Y.bind(this._handleKeyPress, this));
+
+        this._app = config.app;
     },
 
     _handleKeyPress : function(ev) {
@@ -34,7 +35,7 @@ Y.namespace('slides').Overview = Y.Base.create('overview', Y.Base, [], {
 
     _positionSections : function() {
         var sections = Y.all('.slides>section'),
-            current = Y.navigation.getCurrentIndex();
+            current = this._app.navigation.getCurrentIndex();
 
         sections.each(function(section, i){
             var xTranslate = (i - current.index) * 105,
@@ -106,6 +107,5 @@ Y.namespace('slides').Overview = Y.Base.create('overview', Y.Base, [], {
             '-o-transform' : transformStr,
             'transform' : transformStr
         });
-
     }
 });

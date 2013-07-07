@@ -1,8 +1,11 @@
 Y.namespace('slides').Layout = Y.Base.create('layout', Y.Base, [], {
-    initializer : function() {
-        Y.on('windowresize', Y.bind(this.setLayout, this));
+    _app : null,
 
-        this.setLayout();
+    initializer : function(config) {
+        this._app = config.app;
+
+        Y.on('windowresize', Y.bind(this._onWindowResize, this));
+        this._onWindowResize();
     },
 
     // TODO Does not work
@@ -16,7 +19,7 @@ Y.namespace('slides').Layout = Y.Base.create('layout', Y.Base, [], {
         }
     },
 
-    setLayout : function() {
+    _onWindowResize : function() {
         this._setZoom();
         this._setPosition();
     },
