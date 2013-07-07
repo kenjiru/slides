@@ -3,9 +3,16 @@ Y.namespace('slides').Overview = Y.Base.create('overview', Y.Base, [], {
     _overviewEnabled : false,
 
     initializer : function(config) {
-        Y.one(document).on('keydown', Y.bind(this._handleKeyPress, this));
-
         this._app = config.app;
+
+        this.publish('changed');
+        this.addTarget(this._app);
+
+        Y.one(document).on('keydown', Y.bind(this._handleKeyPress, this));
+    },
+
+    isOverviewEnabled : function() {
+        return this._overviewEnabled;
     },
 
     _handleKeyPress : function(ev) {
@@ -20,6 +27,10 @@ Y.namespace('slides').Overview = Y.Base.create('overview', Y.Base, [], {
         } else {
             this._enableOverview();
         }
+
+        this.fire('changed', {
+            overviewEnabled : this._overviewEnabled
+        });
     },
 
     _enableOverview : function() {
@@ -28,8 +39,6 @@ Y.namespace('slides').Overview = Y.Base.create('overview', Y.Base, [], {
         slidesContainer.addClass('overview');
 
         this._positionSections();
-
-        console.log('overview enabled!');
         this._overviewEnabled = true;
     },
 
@@ -45,8 +54,6 @@ Y.namespace('slides').Overview = Y.Base.create('overview', Y.Base, [], {
 
             if(section.hasClass('stack')) {
                 this._positionSubSections(section);
-            } else {
-                section.setStyle('top', '-340px');
             }
         }, this);
     },
@@ -62,11 +69,7 @@ Y.namespace('slides').Overview = Y.Base.create('overview', Y.Base, [], {
                 translateStr = 'translate(0%, ' + yTranslate + '%)';
 
             this._setTransform(subSection, translateStr);
-
-            subSection.setStyle('top', '-340px');
         }, this);
-
-        section.setStyle('top', '0');
     },
 
     _disableOverview : function() {
@@ -75,8 +78,6 @@ Y.namespace('slides').Overview = Y.Base.create('overview', Y.Base, [], {
         slidesContainer.removeClass('overview');
 
         this._disableForSections();
-
-        console.log('overview disabled!');
         this._overviewEnabled = false;
     },
 
