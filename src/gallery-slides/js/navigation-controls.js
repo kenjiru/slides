@@ -13,29 +13,29 @@ Y.namespace('slides').NavigationControls = Y.Base.create('navigationControls', Y
         this._moveRightButton = new NavigationButton({
             app : this._app,
             name : 'right',
-            clickCallback : Y.bind(this._app.navigation.showRight, this._app.navigation),
-            checkCallback : Y.bind(this._app.navigation.hasRight, this._app.navigation)
+            clickCallback : this._app.navigation.showRight,
+            checkCallback : this._app.navigation.hasRight
         });
 
         this._moveLeftButton = new NavigationButton({
             app : this._app,
             name : 'left',
-            clickCallback : Y.bind(this._app.navigation.showLeft, this._app.navigation),
-            checkCallback : Y.bind(this._app.navigation.hasLeft, this._app.navigation)
+            clickCallback : this._app.navigation.showLeft,
+            checkCallback : this._app.navigation.hasLeft
         });
 
         this._moveUpButton = new NavigationButton({
             app : this._app,
             name : 'up',
-            clickCallback : Y.bind(this._app.navigation.showUp, this._app.navigation),
-            checkCallback : Y.bind(this._app.navigation.hasUp, this._app.navigation)
+            clickCallback : this._app.navigation.showUp,
+            checkCallback : this._app.navigation.hasUp
         });
 
         this._moveDownButton = new NavigationButton({
             app : this._app,
             name : 'down',
-            clickCallback : Y.bind(this._app.navigation.showDown, this._app.navigation),
-            checkCallback : Y.bind(this._app.navigation.hasDown, this._app.navigation)
+            clickCallback : this._app.navigation.showDown,
+            checkCallback : this._app.navigation.hasDown
         });
 
         this.add(this._moveRightButton);

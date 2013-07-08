@@ -3,10 +3,15 @@ var NavigationButton = Y.Base.create('navigationButton', Y.Widget, [ Y.WidgetChi
 
     _app : null,
     _className : null,
+    _clickCallback : null,
+    _checkCallback : null,
 
     initializer : function(config) {
         this._app = config.app;
         this._className = this.getClassName(config.name);
+
+        this._clickCallback = Y.bind(config.clickCallback, this._app.navigation);
+        this._checkCallback = Y.bind(config.checkCallback, this._app.navigation);
 
         this._checkEnabled();
     },
@@ -19,19 +24,13 @@ var NavigationButton = Y.Base.create('navigationButton', Y.Widget, [ Y.WidgetChi
     },
 
     _handleClick : function() {
-        var clickCallback;
-
         if (this.get('disabled') == false) {
-            clickCallback = this.get('clickCallback');
-
-            clickCallback();
+            this._clickCallback();
         }
     },
 
     _checkEnabled : function() {
-        var checkCallback = this.get('checkCallback');
-
-        if (checkCallback()) {
+        if (this._checkCallback()) {
             this.enable();
         } else {
             this.disable();
@@ -45,8 +44,6 @@ var NavigationButton = Y.Base.create('navigationButton', Y.Widget, [ Y.WidgetChi
     }
 }, {
     ATTRS : {
-        name : null,
-        clickCallback : null,
-        checkCallback : null
+        name : null
     }
 });
