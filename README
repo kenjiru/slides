@@ -1,1 +1,5 @@
-This file was created by JetBrains WebStorm (WebStorm) WS-129.221 for binding GitHub repository
+slides
+======
+YUI3 reimplementation of the reveal.js presentation framework.
+
+It was designed to be compatible with the slides structure of reveal.js.
